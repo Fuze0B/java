@@ -1,0 +1,100 @@
+<!--nagłowkiem 2 stopnia napisać dane osobowe, pobieramy nazwisko, wiek, miejsce zamieszkania ( jako 3 radio buttony (wieś)(miasteczko do 10tys)(miasto)), 
+zainteresowania checkboxy (5), znajomość języków obcych lista wielokrotnego wyboru (5 języków niemiecki, francuski, hiszpański, włoski, łacina)
+uczysz sie: szkoła podstawowa, średnia, uczelnia, nie ucze się ( lista 1 krotnego wyboru), zatwierdz wypisujemy dane   -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <h2>Dane osobowe</h2><br>
+        <label>Nazwisko:</label><br>
+        <input type="text" name="nazwisko" id="nazwisko"><br>
+        <label>Wiek:</label><br>
+        <input type="number" name="wiek" id="wiek"><br>
+        <label>Miejsce zamieszkania:</label><br>
+        Wieś<input type="radio" name="miejsce" value="Wieś"><br>
+        Miasteczko<input type="radio" name="miejsce" value="Miasteczko"><br>
+        Miasto<input type="radio" name="miejsce" value="Miasto"><br>
+        <label>Zainteresowania</label><br>
+        Piłka Nożna<input type="checkbox" name="pilka" value="piłka_nożna"><br>
+        Siatkówka<input type="checkbox" name="siatkowka" value="siatkówka"><br>
+        Programowanie<input type="checkbox" name="programowanie" value="programowanie"><br>
+        Boks<input type="checkbox" name="boks" value="boks"><br>
+        Koszykówka<input type="checkbox" name="koszykowka" value="koszykówka"><br>
+        <Label>Języki:</Label>
+        <br>
+        <select id="jezyki" multiple>
+            <option value="niemiecki">Niemiecki</option>
+            <option value="francuski">Francuski</option>
+            <option value="hiszpanski">Hiszpański</option>
+            <option value="wloski">Włoski</option>
+            <option value="lacinski">Łaciński</option>
+        </select>
+        <br>
+        <label>Gdzie się uczysz:</label>
+        <br>
+        <select id="nauka">
+            <option value="szkola_podstawowa">Szkoła Podstawowa</option>
+            <option value="szkola_srednia">Szkoła Średnia</option>
+            <option value="uczelnia">Uczelnia</option>
+            <option value="nie_uczysz_sie">Nie uczę sie</option>
+        </select>
+        <button type="button" onclick="wypisz()">Zatwierdź</button>
+    </form>
+    <p id="wynik"></p>
+</body>
+</html>
+
+<script>
+function wypisz() {
+    var nazwisko = document.getElementById("nazwisko").value;
+    var wiek = document.getElementById("wiek").value;
+
+    var miejsce = document.getElementsByName("miejsce");
+    var miejsce_zam = "Nie wybrano";
+    if (miejsce[0].checked) {
+        miejsce_zam = "wieś";
+    } else if (miejsce[1].checked) {
+        miejsce_zam = "miasteczko";
+    } else if (miejsce[2].checked) {
+        miejsce_zam = "miasto";
+    }
+
+    var pilka = document.getElementsByName("pilka")[0].checked ? "Piłka Nożna" : "";
+    var siatkowka = document.getElementsByName("siatkowka")[0].checked ? "Siatkówka" : "";
+    var programowanie = document.getElementsByName("programowanie")[0].checked ? "Programowanie" : "";
+    var boks = document.getElementsByName("boks")[0].checked ? "Boks" : "";
+    var koszykowka = document.getElementsByName("koszykowka")[0].checked ? "Koszykówka" : "";
+
+    var zainteresowania = [];
+    if (pilka) zainteresowania.push(pilka);
+    if (siatkowka) zainteresowania.push(siatkowka);
+    if (programowanie) zainteresowania.push(programowanie);
+    if (boks) zainteresowania.push(boks);
+    if (koszykowka) zainteresowania.push(koszykowka);
+
+            var jezyki = document.getElementById("jezyki");
+            var wybrane_jezyki = [];
+            for (var i = 0; i < jezyki.selectedOptions.length; i++) {
+                if (jezyki.options[i].selected) {
+                    wybrane_jezyki.push(jezyki.options[i].value);
+                }
+            }
+
+            var nauka = document.getElementById("nauka").value;
+
+ 
+            document.getElementById("wynik").innerHTML =
+                "Nazwisko: " + nazwisko + "<br>" +
+                "Wiek: " + wiek + "<br>" +
+                "Miejsce zamieszkania: " + miejsce_zam + "<br>" +
+                "Zainteresowania: " + zainteresowania.join(", ") + "<br>" +
+                "Języki obce: " + wybrane_jezyki.join(", ") + "<br>" +
+                "Gdzie się uczysz: " + nauka;
+}
+    </script>
